@@ -1,4 +1,4 @@
-# real_atomic_physics_dimulator
+# real_atomic_physics_simulator
 Real Atomic Physics Simulator in C++ from scratch (
 
 Update os and clean old packages : 
