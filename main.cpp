@@ -4,7 +4,7 @@ int main()
 {
 
 	Application app;
-	// Initialisation de la fenêtre
+	// Initia(lisation de la fenêtre
     if (app.init()) {
         std::cout << "Erreur lors de l'initialisation de l'application." << std::endl;
         return false;

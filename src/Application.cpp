@@ -7,14 +7,15 @@ Application::Application()
 bool Application::init()
 {
     // ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event);
-    if (!window.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event)) {
+    if (!window.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified)) {
         std::cout << "Erreur lors de l'initialisation de la fenêtre." << std::endl;
         return false;
     }
 
     std::thread refreshThread([&]() {
-        ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event);
+        ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified);
     });
+    refreshThread.join();
 
     window.refresh();
 

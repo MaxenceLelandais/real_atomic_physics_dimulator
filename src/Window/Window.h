@@ -15,7 +15,7 @@ public:
     // Constructeur
     Window();
 
-    bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>> *);
+    bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>> *, bool*);
     bool release();
 
     // Destructeur
@@ -30,6 +30,7 @@ public:
 
     int SCREEN_WIDTH = 1920;
     int SCREEN_HEIGHT = 1080;
+    bool* screenModified;
     int actual_id = 0;
     int mouse_x = 0;
     int mouse_y = 0;

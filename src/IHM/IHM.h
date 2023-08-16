@@ -12,7 +12,7 @@ class IHM
 public:
 	IHM();
 
-	bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>>*);
+	bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>>*, bool*);
 
 	~IHM();
 

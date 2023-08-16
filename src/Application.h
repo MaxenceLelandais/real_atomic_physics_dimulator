@@ -27,6 +27,7 @@ public:
 
 	const int SCREEN_WIDTH = 1920;
     const int SCREEN_HEIGHT = 1080;
+	bool* screenModified = new bool;
 
 	sf::Uint8* matrix = new sf::Uint8[SCREEN_WIDTH * SCREEN_HEIGHT * 4];
 	sf::Uint16* id_matrix = new sf::Uint16[SCREEN_WIDTH * SCREEN_HEIGHT];

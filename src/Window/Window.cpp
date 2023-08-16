@@ -5,13 +5,14 @@ Window::Window():fenetre(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Affichage 
 
 }
 
-bool Window::init(int SCREEN_WIDTH, int SCREEN_HEIGHT,sf::Uint8* matrix, sf::Uint16* id_matrix,std::map<int, std::map<std::string,std::function<void()>>>* map_event)
+bool Window::init(int SCREEN_WIDTH, int SCREEN_HEIGHT,sf::Uint8* matrix, sf::Uint16* id_matrix,std::map<int, std::map<std::string,std::function<void()>>>* map_event, bool* screenModified)
 {
     this->SCREEN_WIDTH = SCREEN_WIDTH;
     this->SCREEN_HEIGHT = SCREEN_HEIGHT;
     this->matrix = matrix;
     this->id_matrix = id_matrix;
     this->map_event = map_event;
+    this->screenModified = screenModified;
 
     std::fill_n(matrix, SCREEN_WIDTH * SCREEN_HEIGHT * 4, 255);
     std::fill_n(id_matrix, SCREEN_WIDTH * SCREEN_HEIGHT, 0);
@@ -108,8 +109,9 @@ std::string Window::encodeEvent(sf::Event event)
 void Window::update()
 {
     // Rafraîchissement de la fenêtre
+    
     texture.update(matrix);
-    fenetre.display();
+    fenetre.display();    
 }
 
 void Window::refresh()
@@ -117,20 +119,31 @@ void Window::refresh()
     int fps = 60;
     int microSecPerFrame = 1000000/fps;
     // Boucle principale du programme
+    bool start = true;
+    
     while (fenetre.isOpen())
     {
         auto startTime = std::chrono::high_resolution_clock::now();
-
+        
         handleEvents();
-        draw();
-        update(); 
+        if(*screenModified)
+        {
+            draw();
+            update(); 
+            if(start)
+            {
+                start = false;
+            }
+            else
+            {
+                *screenModified = false;
+            }
+        }
 
-        auto endTime = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - startTime);
         
         if (duration.count() < microSecPerFrame) {
-            int sleepTime = microSecPerFrame - duration.count();
-            usleep(sleepTime);
+            usleep(microSecPerFrame - duration.count());
         }
     }
 }

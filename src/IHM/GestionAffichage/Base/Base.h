@@ -12,7 +12,7 @@ class Base
 public:
 	Base();
 
-	bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>>*);
+	bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>>*, bool*);
 
 	~Base();
 
@@ -21,6 +21,7 @@ public:
     int SCREEN_HEIGHT;
 
 	int id = 0;
+	bool* screenModified;
 
     sf::Uint8* matrix;
 	sf::Uint16* id_matrix;
@@ -29,9 +30,14 @@ public:
 	std::map<int, std::map<std::string,std::function<void()>>>* map_event;
 
 public:
-	int rect(int, int, int, int, unsigned char[4]);
 	int rect(int, int, int, int, unsigned char[4], int);
-	int text(int, int, std::string, unsigned short int, unsigned char [4], unsigned char [4]);
+	int rectBorder(int, int, int, int, int, unsigned char[4], unsigned char[4]);
+	int circle(int, int, int, unsigned char[4], int);
+	int circleBorder(int, int, int, int, unsigned char[4], unsigned char[4]);
+	int rectCircleAngle(int, int, int, int, int, unsigned char[4], int);
+	int rectCircleAngleBorder(int, int, int, int, int, int, unsigned char[4], unsigned char[4]);
+
+	int text(int, int, std::string, unsigned short int, unsigned char [4], unsigned char [4], int);
 
 public:
 	std::map<int,std::map<const char,std::string>>* font_dictionnary = new std::map<int,std::map<const char,std::string>>;
