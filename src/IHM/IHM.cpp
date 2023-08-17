@@ -33,7 +33,7 @@ bool IHM::init(int SCREEN_WIDTH, int SCREEN_HEIGHT,sf::Uint8* matrix,sf::Uint16*
     rendu.circleBorder(200, 400, 50, 10, black, red);
     rendu.rectCircleAngle(400,100,200,150,50, red, 0);
     rendu.rectCircleAngleBorder(450,400,80,40,10, 20, red, black);
-    rendu.text(0, 0, "New simulation", 30, black, red, 0);
+    rendu.text(10, 0, "New simulation", 50, black, red, 0);
     
     return true;
 }
