@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Quality/Log.h"
 
 Application::Application()
 {
@@ -11,11 +12,16 @@ bool Application::init()
         std::cout << "Erreur lors de l'initialisation de la fenêtre." << std::endl;
         return false;
     }
+    Log log;
+    log.send("info", "Init window.");
 
     std::thread refreshThread([&]() {
         ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified);
     });
     refreshThread.join();
+    
+    log.send("info", "Init IHM.");
+
 
     window.refresh();
 

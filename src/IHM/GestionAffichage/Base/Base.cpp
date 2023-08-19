@@ -215,6 +215,7 @@ int Base::text(int x, int y, std::string text, unsigned short int size, unsigned
     unsigned char power;
     unsigned char offSetX;
     unsigned char character;
+    unsigned char charAnalyse;
 
     bool activate_min;
     bool decalage_max_mesure;
@@ -244,7 +245,9 @@ int Base::text(int x, int y, std::string text, unsigned short int size, unsigned
         width_mesure = true;
         bit = false;
 
-        if (text[post] != ' ')
+        charAnalyse = text[post];
+
+        if (charAnalyse != ' ')
         {
             for (int post_char = 0; post_char < text_size; post_char++)
             {
@@ -256,8 +259,9 @@ int Base::text(int x, int y, std::string text, unsigned short int size, unsigned
                 {
                     line++;
                     col = 0;
-                    activate_min = true;
-                    if (text[post] == 'i' && decalage_max != 0)
+                    if (charAnalyse != 'i' && charAnalyse != '!')
+                        activate_min = true;
+                    if ((charAnalyse == 'i' or charAnalyse == '!') && decalage_max != 0)
                         decalage_max_mesure = false;
                 }
                 else
@@ -285,7 +289,7 @@ int Base::text(int x, int y, std::string text, unsigned short int size, unsigned
         decalage_max -= decalage_min - 1;
         value = start_row;
 
-        for (int post_char = 0; post_char < text_size + offSetY; post_char++)
+        for (int post_char = 0; post_char < text_size; post_char++)
         {
             if (line >= size)
                 break;
@@ -325,21 +329,24 @@ int Base::text(int x, int y, std::string text, unsigned short int size, unsigned
                 }
             }
         }
-        start_row += (decalage_max)*4;
-        for (line = 0; line < size; line++)
+        if(post < text.size()-1)
         {
-            value = start_row + line * SCREEN_WIDTH * 4;
-            for (col = 0; col < offSetX; col += 1)
+            start_row += (decalage_max)*4;
+            for (line = 0; line < size; line++)
             {
-                value2 = value + col * 4;
-                matrix[value2] = background_color[0];
-                matrix[value2 + 1] = background_color[1];
-                matrix[value2 + 2] = background_color[2];
-                matrix[value2 + 3] = background_color[3];
-                id_matrix[start_row / 2 + col * 2 + line * SCREEN_WIDTH] = set_id;
+                value = start_row + line * SCREEN_WIDTH * 4;
+                for (col = 0; col < offSetX; col += 1)
+                {
+                    value2 = value + col * 4;
+                    matrix[value2] = background_color[0];
+                    matrix[value2 + 1] = background_color[1];
+                    matrix[value2 + 2] = background_color[2];
+                    matrix[value2 + 3] = background_color[3];
+                    id_matrix[start_row / 2 + col * 2 + line * SCREEN_WIDTH] = set_id;
+                }
             }
+            start_row += offSetX * 4;
         }
-        start_row += offSetX * 4;
     }
     *screenModified = true;
     return id;
@@ -377,8 +384,8 @@ std::string Base::convertText(unsigned char letter, unsigned short int size)
                     {
                         (*font_dictionnary)[size][symbol] += character;
                         position_list_char++;
-                        if (position_list_char > 91)
-                            position_list_char = 0;
+                        // if (position_list_char > 91)
+                        //     position_list_char = 0;
                     }
                     else if (character == 170)
                     {
@@ -386,8 +393,6 @@ std::string Base::convertText(unsigned char letter, unsigned short int size)
                     }
                     else
                     {
-                        if (symbol == ' ')
-                            character = 0x00;
                         (*font_dictionnary)[size][symbol] += character;
                     }
                 }
