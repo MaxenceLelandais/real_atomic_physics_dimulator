@@ -3,35 +3,30 @@
 #include "Window/Window.h"
 #include "IHM/IHM.h"
 
-#include <iostream>
 #include <functional>
 #include <map>
-#include <chrono>
 #include <thread>
-
 
 class Application
 {
 public:
-
 	// Constructeur
-    Application();    
+	Application();
 
-    bool init();
+	bool init();
 	bool release();
 
-    // Destructeur
-    ~Application();
+	// Destructeur
+	~Application();
 
 public:
-
 	const int SCREEN_WIDTH = 1920;
-    const int SCREEN_HEIGHT = 1080;
-	bool* screenModified = new bool;
+	const int SCREEN_HEIGHT = 1080;
+	bool *screenModified = new bool;
 
-	sf::Uint8* matrix = new sf::Uint8[SCREEN_WIDTH * SCREEN_HEIGHT * 4];
-	sf::Uint16* id_matrix = new sf::Uint16[SCREEN_WIDTH * SCREEN_HEIGHT];
-	std::map<int, std::map<std::string,std::function<void()>>>* map_event = new std::map<int, std::map<std::string,std::function<void()>>>;
+	sf::Uint8 *matrix = new sf::Uint8[SCREEN_WIDTH * SCREEN_HEIGHT * 4];
+	sf::Uint16 *id_matrix = new sf::Uint16[SCREEN_WIDTH * SCREEN_HEIGHT];
+	std::map<int, std::map<std::string, std::function<void()>>> *map_event = new std::map<int, std::map<std::string, std::function<void()>>>;
 
 	Window window;
 	IHM ihm;

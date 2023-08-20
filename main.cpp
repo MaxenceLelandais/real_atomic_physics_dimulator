@@ -1,18 +1,19 @@
 #include "src/Application.h"
 #include "src/Quality/Log.h"
-#include <iostream>
 
 int main()
 {
-    Log log;
-    log.send("info", "Starting program.");
-	Application app;
-	// Initia(lisation de la fenêtre
-    if (app.init()) {
-        std::cout << "Erreur lors de l'initialisation de l'application." << std::endl;
+    Log::getInstance()->logMessage("info", "Starting program.");
+
+    Application app;
+    Log::getInstance()->logMessage("info", "Application init.");
+    if (app.init())
+    {
+        Log::getInstance()->logMessage("error", "Application init.");
         return false;
     }
-    
 
-	return 0;
+    Log::getInstance()->logMessage("info", "Close program.");
+
+    return 0;
 }

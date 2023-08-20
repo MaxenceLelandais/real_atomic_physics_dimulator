@@ -7,8 +7,18 @@
 
 class Log
 {
-public:
+private:
+	static Log *instance;
+	unsigned long int saveTime;
+	unsigned long int saveUserTimeUs;
+	unsigned long int saveSysTimeUs;
+	std::ofstream logFile;
 	Log();
+	std::string ramValueRefactoring(unsigned long int);
+	std::string timeValueRefactoring();
+
+public:
+	static Log *getInstance();
+	bool logMessage(std::string, std::string);
 	~Log();
-    bool send(std::string, std::string);
 };

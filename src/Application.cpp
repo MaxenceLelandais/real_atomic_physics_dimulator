@@ -3,47 +3,49 @@
 
 Application::Application()
 {
-	
 }
 bool Application::init()
 {
-    // ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event);
-    if (!window.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified)) {
-        std::cout << "Erreur lors de l'initialisation de la fenêtre." << std::endl;
+    Log::getInstance()->logMessage("info","Init window.");
+    
+    if (!window.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified))
+    {
+        Log::getInstance()->logMessage("error","Init window.");
         return false;
     }
-    Log log;
-    log.send("info", "Init window.");
 
-    std::thread refreshThread([&]() {
-        ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified);
+    Log::getInstance()->logMessage("info","Start thread ihm.");
+    std::thread refreshThread([&]()
+    { 
+        Log::getInstance()->logMessage("info","Init IHM.");
+        if(!ihm.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified))
+        {
+            Log::getInstance()->logMessage("error","Init IHM.");
+        }; 
     });
+    Log::getInstance()->logMessage("info","Join thread IHM.");
     refreshThread.join();
-    
-    log.send("info", "Init IHM.");
 
+    Log::getInstance()->logMessage("info","Refresh window.");
 
     window.refresh();
 
-
-    // Libération des ressources
+    Log::getInstance()->logMessage("info","Release window.");
     window.release();
 
-	return true;
+    return true;
 }
-        
- 
+
 bool Application::release()
 {
-	window.release();
-	delete matrix;
+    window.release();
+    delete matrix;
     delete id_matrix;
     delete map_event;
-	
-	return true;
+
+    return true;
 }
 
 Application::~Application()
 {
-
 }

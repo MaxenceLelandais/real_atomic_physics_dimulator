@@ -1,0 +1,9 @@
+8-20-2023 12:35:28:457:326 {CPU user = 118.993%, CPU system = 118.993%, RAM = 0 Go 42 mo 729 ko 472 o} [info] -> Starting program.
+8-20-2023 12:35:28:734:807 {CPU user = 1.6577%, CPU system = 0.554925%, RAM = 0 Go 70 mo 807 ko 552 o} [info] -> Application init.
+8-20-2023 12:35:28:734:848 {CPU user = 4.42073%, CPU system = 1.67683%, RAM = 0 Go 70 mo 807 ko 552 o} [info] -> Init window.
+8-20-2023 12:35:28:758:121 {CPU user = 3.03034%, CPU system = 3.17106%, RAM = 0 Go 93 mo 745 ko 152 o} [info] -> Start thread ihm.
+8-20-2023 12:35:28:758:516 {CPU user = 4.69937%, CPU system = 2.13608%, RAM = 0 Go 93 mo 745 ko 152 o} [info] -> Join thread IHM.
+8-20-2023 12:35:28:758:532 {CPU user = 7.03125%, CPU system = 3.125%, RAM = 0 Go 93 mo 745 ko 152 o} [info] -> Init IHM.
+8-20-2023 12:35:28:768:0 {CPU user = 6.2269%, CPU system = 0%, RAM = 0 Go 93 mo 876 ko 224 o} [info] -> Refresh window.
+8-20-2023 12:35:30:563:852 {CPU user = 0.0690689%, CPU system = 0.0100962%, RAM = 0 Go 97 mo 939 ko 456 o} [info] -> Release window.
+8-20-2023 12:35:30:563:969 {CPU user = 4.48718%, CPU system = 1.65598%, RAM = 0 Go 97 mo 939 ko 456 o} [error] -> Application init.
