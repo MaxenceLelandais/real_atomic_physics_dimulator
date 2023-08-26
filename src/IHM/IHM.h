@@ -12,21 +12,20 @@ class IHM
 public:
 	IHM();
 
-	bool init(int, int, sf::Uint8*, sf::Uint16*,std::map<int, std::map<std::string,std::function<void()>>>*, bool*);
-
+	bool init(int, int, sf::Uint8 *, sf::Uint16 *, std::map<int, std::map<std::string, std::function<void()>>> *, bool *);
+	bool release();
 	~IHM();
 
 public:
 	int SCREEN_WIDTH;
-    int SCREEN_HEIGHT;
-	sf::Uint8* matrix;
-	sf::Uint16* id_matrix;
-	std::map<int, std::map<std::string,std::function<void()>>>* map_event;
+	int SCREEN_HEIGHT;
+	sf::Uint8 *matrix;
+	sf::Uint16 *id_matrix;
+	std::map<int, std::map<std::string, std::function<void()>>> *map_event;
 
 	Rendu rendu;
-	
 
-public:
-	void speedTest();
-	
+private:
+	void menu();
+	void quit();
 };

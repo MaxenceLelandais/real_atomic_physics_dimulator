@@ -2,69 +2,62 @@
 
 IHM::IHM()
 {
-    
 }
 
 void myFunction()
 {
-    std::cout << "La fonction myFunction a été appelée avec les paramètres : "<<std::endl;
+    std::cout << "La fonction myFunction a été appelée avec les paramètres : " << std::endl;
 }
 
-bool IHM::init(int SCREEN_WIDTH, int SCREEN_HEIGHT,sf::Uint8* matrix,sf::Uint16* id_matrix,std::map<int, std::map<std::string,std::function<void()>>>* map_event, bool* screenModified)
+bool IHM::init(int SCREEN_WIDTH, int SCREEN_HEIGHT, sf::Uint8 *matrix, sf::Uint16 *id_matrix, std::map<int, std::map<std::string, std::function<void()>>> *map_event, bool *screenModified)
 {
-    
+
     this->SCREEN_WIDTH = SCREEN_WIDTH;
     this->SCREEN_HEIGHT = SCREEN_HEIGHT;
     this->matrix = matrix;
     this->map_event = map_event;
-    
+
     rendu.init(SCREEN_WIDTH, SCREEN_HEIGHT, matrix, id_matrix, map_event, screenModified);
-    
+    menu();
 
-    unsigned char black[4] = {0,0,0,255};
-    unsigned char red[4] = {255,0,0,255};
-    unsigned char white[4] = {255,255,255,255};
-
-    rendu.Button(300, 0, 200, 200, red, black, myFunction);
-    
-    rendu.rect(0,500,200,400, black, 0);
-    rendu.rectBorder(500,0,200,400, 25, red, black);
-    rendu.circle(600, 400, 50, black, 0);
-    rendu.circleBorder(200, 400, 50, 10, black, red);
-    rendu.rectCircleAngle(400,100,200,150,50, red, 0);
-    rendu.rectCircleAngleBorder(450,400,80,40,10, 20, red, black);
-    rendu.text(10, 0, "New simulation", 60, black, red, 0);
-    
     return true;
 }
 
-
-
-void IHM::speedTest()
+void IHM::menu()
 {
-    unsigned char color[4] = {255,128,0,255};
-    // rendu.rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT, color);
-    float sum = 0.0;
-    float nombre = 0.0;
+    unsigned char black[4] = {0, 0, 0, 255};
+    unsigned char grey[4] = {210, 210, 210, 255};
+    unsigned char white[4] = {255, 255, 255, 255};
+    unsigned char red[4] = {255, 0, 0, 255};
 
-    while (true){
-        nombre ++;
+    int idNewSim, idLoadSim, idConfig, idLeave, idHelp, idInfos, idQuit;
+    int size = 40;
+    int widthButton = 350, heightButton = 100, border = 2, radius = 20, centerX = SCREEN_WIDTH / 2 - widthButton / 2, centerY = SCREEN_HEIGHT / 2 - heightButton / 2, footY = SCREEN_HEIGHT / 9;
 
-        // Mesurer le temps d'exécution
-        auto startTime = std::chrono::high_resolution_clock::now();
+    idQuit = rendu.ButtonRectCircleAngleBorderWithText(SCREEN_WIDTH-50, 50, 50, 50, radius, border, "X", size, black, black, red, red, black, black, myFunction);
 
-        rendu.rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, color, 0);
+    idNewSim = rendu.ButtonRectCircleAngleBorderWithText(centerX, footY, widthButton, heightButton, radius, border, "New simulation", size, black, black, grey, white, black, black, myFunction);
 
-        auto endTime = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-        sum+=duration.count();
-        std::cout << "Temps d'exécution de la ligne rendu.rect : " << 1/((sum/nombre)/1000) << " fps." << std::endl;
+    idLoadSim = rendu.ButtonRectCircleAngleBorderWithText(centerX, 3 * footY, widthButton, heightButton, radius, border, "Load simulation", size, black, black, grey, white, black, black, myFunction);
 
+    idConfig = rendu.ButtonRectCircleAngleBorderWithText(centerX, 6 * footY, widthButton, heightButton, radius, border, "Configuration", size, black, black, grey, white, black, black, myFunction);
 
-    }
+    idNewSim = rendu.ButtonRectCircleAngleBorderWithText(centerX, 8 * footY, widthButton, heightButton, radius, border, "Leave", size, black, black, grey, white, black, black, myFunction);
+
+    idNewSim = rendu.ButtonRectCircleAngleBorderWithText(SCREEN_WIDTH / 10, centerY, widthButton, heightButton, radius, border, "Help", size, black, black, grey, white, black, black, myFunction);
+
+    idNewSim = rendu.ButtonRectCircleAngleBorderWithText(8 * SCREEN_WIDTH / 10, centerY, widthButton, heightButton, radius, border, "Informations", size, black, black, grey, white, black, black, myFunction);
 }
 
+void IHM::quit()
+{
+    release();
+}
+
+bool IHM::release()
+{
+    return true;
+}
 IHM::~IHM()
 {
-	
 }

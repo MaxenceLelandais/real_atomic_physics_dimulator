@@ -1,31 +1,34 @@
-#include <iostream>
-#include <chrono>
-#include <ctime>
+#include "gmp.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
-int main() {
-    // Get the current time point
-    auto currentTime = std::chrono::system_clock::now();
+void fact(int n){
+  int i;
+  mpz_t p;
 
-    // Convert the time point to a time_t object
-    std::time_t currentTime_t = std::chrono::system_clock::to_time_t(currentTime);
+  mpz_init_set_ui(p,1); /* p = 1 */
+  for (i=1; i <= n ; ++i){
+    mpz_mul_ui(p,p,i); /* p = p * i */
+  }
+  printf ("%d!  =  ", n);
+  mpz_out_str(stdout,10,p);
+  mpz_clear(p);
 
-    // Convert the time_t object to a tm structure (broken down time)
-    std::tm* currentTime_tm = std::localtime(&currentTime_t);
+}
 
-    // Get the milliseconds and microseconds
-    auto duration = currentTime.time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() % 1000;
-    auto micros = std::chrono::duration_cast<std::chrono::microseconds>(duration).count() % 1000;
+int main(int argc, char * argv[]){
+  int n =100;
 
-    // Print the current date and time components
-    std::cout << "Year: " << 1900 + currentTime_tm->tm_year << std::endl;
-    std::cout << "Month: " << 1 + currentTime_tm->tm_mon << std::endl;
-    std::cout << "Day: " << currentTime_tm->tm_mday << std::endl;
-    std::cout << "Hours: " << currentTime_tm->tm_hour << std::endl;
-    std::cout << "Minutes: " << currentTime_tm->tm_min << std::endl;
-    std::cout << "Seconds: " << currentTime_tm->tm_sec << std::endl;
-    std::cout << "Milliseconds: " << millis << std::endl;
-    std::cout << "Microseconds: " << micros << std::endl;
 
-    return 0;
+//   if (argc <= 1){
+//     printf ("Usage: %s <number> \n", argv[0]);
+//     return 2;
+//   }
+
+//   assert( n >= 0);
+  fact(n);
+
+
+  return 1;
 }

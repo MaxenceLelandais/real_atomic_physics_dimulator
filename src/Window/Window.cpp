@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window() : fenetre(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Affichage des pixels", sf::Style::Default)
+Window::Window() : fenetre(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Affichage des pixels", sf::Style::Fullscreen)//Default, Fullscreen
 {
 }
 
@@ -127,7 +127,7 @@ void Window::refresh()
         auto startTime = std::chrono::high_resolution_clock::now();
 
         handleEvents();
-        if (*screenModified)
+        if (true)//*screenModified)
         {
             draw();
             update();
